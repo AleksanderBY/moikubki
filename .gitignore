@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /web/bundles/
 /app/bootstrap.php.cache
 /app/cache/*
@@ -11,6 +12,8 @@
 /vendor/
 /bin/
 =======
+=======
+>>>>>>> bab18038026d7e21ba4d6595894656fc7f123df5
 # Cache and logs (Symfony2)
 /app/cache/*
 /app/logs/*
@@ -44,5 +47,8 @@
 /phpunit.xml
 
 # Composer PHAR
+<<<<<<< HEAD
+>>>>>>> bab18038026d7e21ba4d6595894656fc7f123df5
+=======
 >>>>>>> bab18038026d7e21ba4d6595894656fc7f123df5
 /composer.phar
