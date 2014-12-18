@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Логин/Register</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your,Keywords">
+    <meta name="author" content="ResponsiveWebInc">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    {% block stylesheets %}
+        <!-- Styles -->
+        <!-- Bootstrap CSS -->
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- jQuery UI -->
+        <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
+
+
+        <!-- jQuery Gritter -->
+        <link href="{{ asset('css/jquery.gritter.css') }}" rel="stylesheet">
+
+        <!-- Font awesome CSS -->
+        <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+        <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="css/style-ie.css" />
+        <![endif]-->
+    {% endblock %}
+
+</head>
+
+<body>
+
+
+
+
+
+<div class="out-container">
+
+    <div class="login-page">
+        <div class="container">
+            {% block form %}
+
+
+            {% endblock form %}
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Javascript files -->
+<!-- jQuery -->
+<script src="{{ asset('js/jquery.js') }}"></script>
+<!-- Bootstrap JS -->
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<!-- Respond JS for IE8 -->
+<script src="{{ asset('js/respond.min.js') }}"></script>
+<!-- HTML5 Support for IE -->
+<script src="{{ asset('js/html5shiv.js') }}"></script>
+
+</body>
+</html>
+

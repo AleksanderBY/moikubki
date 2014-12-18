@@ -11,6 +11,7 @@
 /build/
 /vendor/
 /bin/
+/.idea
 =======
 =======
 >>>>>>> bab18038026d7e21ba4d6595894656fc7f123df5
@@ -25,7 +26,6 @@
 /var/logs/*
 !var/cache/.gitkeep
 !var/logs/.gitkeep
-
 # Parameters
 /app/config/parameters.yml
 /app/config/parameters.ini
