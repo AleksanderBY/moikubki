@@ -1,13 +1,278 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>Мои кубки - профессиональная статистика для любительского и детского спорта</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your,Keywords">
+    <meta name="author" content="ResponsiveWebInc">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block stylesheets %}
+        <!-- Styles -->
+        <!-- Bootstrap CSS -->
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        <!-- jQuery UI -->
+        <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet">
+
+
+        <!-- jQuery Gritter -->
+        <link href="{{ asset('css/jquery.gritter.css') }}" rel="stylesheet">
+        <!-- Bootstrap Switch -->
+        <link href="{{ asset('css/bootstrap-switch.css') }}" rel="stylesheet">
+        <!-- jQuery Datatables -->
+        <link href="{{ asset('css/jquery.dataTables.css') }}" rel="stylesheet">
+        <!-- Rateit -->
+        <link href="{{ asset('css/rateit.css') }}" rel="stylesheet">
+        <!-- jQuery prettyPhoto -->
+        <link href="{{ asset('css/prettyPhoto.css') }}" rel="stylesheet">
+        <!-- Full calendar -->
+        <link href="{{ asset('css/fullcalendar.css') }}" rel="stylesheet">
+        <!-- Font awesome CSS -->
+        <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+        <!--[if IE]>
+        <link rel="stylesheet" type="text/css" href="css/style-ie.css" />
+        <![endif]-->
+    {% endblock %}
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+</head>
+
+<body>
+
+
+
+
+
+<div class="out-container">
+    <div class="outer">
+        <!-- Sidebar starts -->
+        <div class="sidebar">
+            <!-- Logo starts -->
+            <div class="logo">
+                <h1><a href="index.html">Мои кубки</a></h1>
+            </div>
+            <!-- Logo ends -->
+
+            <!-- Sidebar buttons starts -->
+
+            <!-- Sidebar search -->
+
+            <!-- Sidebar navigation starts -->
+
+            <div class="sidebar-dropdown"><a href="#">Navigation</a></div>
+
+            <div class="sidey">
+                <ul class="nav">
+                    <!-- Main navigation. Refer Notes.txt files for reference. -->
+
+                    <!-- Use the class "current" in main menu to hightlight current main menu -->
+                    <li><a href="index.html"><i class="fa fa-desktop"></i> Dashboard</a></li>
+
+
+                </ul>
+            </div>
+            <!-- Sidebar navigation ends -->
+
+
+        </div>
+        <!-- Sidebar ends -->
+
+        <!-- Mainbar starts -->
+        <div class="mainbar">
+
+            <!-- Page heading starts -->
+            <div class="page-head">
+                <div class="container">
+                    <div class="row">
+                        <!-- Page heading -->
+                        <!-- Mini status -->
+
+                        <!-- Icons -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- Page heading ends -->
+
+            <!-- Hero status starts -->
+
+            <div class="hero-status">
+                <div class="container">
+
+                    Здесь может быть ваша реклама
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <!-- Hero status ends -->
+
+            <!-- Black block starts -->
+            <div class="blue-block">
+                <div class="page-title">
+                    <h3 class="pull-left">
+                        {% block page_title %} Лига чемпионов УЕФА {% endblock %}
+                    </h3>
+
+                    <div class="breads pull-right">
+                        <a href="#">Home </a>/ <a href="#">Pages </a>/ Title
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!-- Black block ends -->
+
+
+
+            <!-- Content starts -->
+
+            <div class="container">
+                <div class="page-content">
+                    {% block bl1 %}
+
+                    {% endblock bl1 %}
+                </div>
+            </div>
+
+            <!-- Content ends -->
+
+        </div>
+        <!-- Mainbar ends -->
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+
+<!-- ////////////////////////////////// -->
+
+<!-- Sliding boxes ends -->
+
+<!-- Scroll to top -->
+<span class="totop"><a href="#"><i class="fa fa-chevron-up"></i></a></span>
+
+
+{% block scripts %}
+    <!-- Javascript files -->
+    <!-- Для FOSJsBundle-->
+
+    <!-- jQuery -->
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <!-- Sparkline for Mini charts -->
+    <script src="{{ asset('js/sparkline.js') }}"></script>
+    <!-- jQuery UI -->
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+
+    <!-- jQuery flot -->
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{{ asset('theme/js/excanvas.min.js') }}"></script><![endif]-->
+    <script src="{{ asset('js/jquery.flot.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.flot.pie.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.flot.resize.min.js') }}"></script>
+
+    <!-- jQuery Knob -->
+    <script src="{{ asset('js/jquery.knob.js') }}"></script>
+    <!-- jQuery Data Tables -->
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <!-- jQuery Knob -->
+    <script src="{{ asset('js/bootstrap-switch.min.js') }}"></script>
+    <!-- jQuery Knob -->
+    <script src="{{ asset('js/jquery.rateit.min.js') }}"></script>
+    <!-- jQuery prettyPhoto -->
+    <script src="{{ asset('js/jquery.prettyPhoto.js') }}"></script>
+    <!-- jquery slim scroll -->
+    <script src="{{ asset('js/jquery.slimscroll.min.js') }}"></script>
+    <!-- jQuery gritter -->
+    <script src="{{ asset('js/jquery.gritter.min.js') }}"></script>
+    <!-- jQuery full calendar -->
+    <script src="{{ asset('js/fullcalendar.min.js') }}"></script>
+    <!-- Respond JS for IE8 -->
+    <script src="{{ asset('js/respond.min.js') }}"></script>
+    <!-- HTML5 Support for IE -->
+    <script src="{{ asset('js/html5shiv.js') }}"></script>
+    <!-- Custom JS -->
+    <script src="{{ asset('js/custom.notification.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+
+
+
+    <!-- Javascript for this page -->
+
+    <script type="text/javascript">
+
+        <!-- Quick chart -->
+        $(function() {
+            var d1 = [[0, 1], [1, 2], [2, 3], [3, 4],[4, 5], [5, 6], [6, 5], [7, 6],[8, 7], [9, 6], [10, 7], [11, 8],[12, 9], [13, 9], [14, 9], [15, 8],[16, 8], [17, 9], [18, 10], [19, 10],[20, 9], [21, 8], [22, 7], [23, 8],[24, 9], [25, 8], [26, 6], [27, 4],[28, 2]];
+            var options = {
+                series: {
+                    lines: {
+                        show: true, fill: true, fillColor: "rgba(113,214,232,0.5)", lineWidth:1
+                    },
+                    points: {
+                        show: true, fill: true, fillColor: "rgba(113,214,232,0.5)"
+                    }
+                },
+                colors :["rgba(255,255,255,1)"],
+                grid: {
+                    color: "#fff", borderWidth: 0, minBorderMargin: 5
+                },
+                xaxis: {
+                    font: {
+                        size: 10,
+                        color: "rgba(255,255,255,0.8)"
+                    }
+                },
+                yaxis: {
+                    font: {
+                        size: 10,
+                        color: "rgba(255,255,255,0.8)"
+                    }
+                }
+            };
+            <!-- Actual plotting -->
+            $.plot("#quick-chart", [ d1 ], options);
+        });
+
+
+        <!-- ECG chart -->
+        $(function() {
+            var d1 = [[0,0], [1, 2], [2, 0], [3, 3], [4, 1], [5, 3], [6, 2], [7, 1], [8, 2], [9, 3], [10, 1], [11,2], [12,0]];
+            var options = {
+                series: {
+                    lines: {
+                        show: true, fill: false, lineWidth:1
+                    },
+                    points: {
+                        show: true, fill: false, radius:2
+                    }
+                },
+                colors :["rgba(255,255,255,1)"],
+                grid: {
+                    color: "#fff", borderWidth: 0, minBorderMargin: 8
+                },
+                xaxis: {
+                    show: false
+                },
+                yaxis: {
+                    show: false
+                }
+            };
+            <!-- Actual plotting -->
+            $.plot("#ecg-chart", [ d1 ], options);
+        });
+
+
+
+    </script>
+{% endblock scripts %}
+
+</body>
 </html>
