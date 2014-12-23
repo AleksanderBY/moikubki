@@ -544,6 +544,7 @@ $(document).ready(function () {
 //отправляем запрос на добавление новой команды
 $(document).ready(function () {
     $('#createTeam').click(function () {
+
         var country = $('[data-geo="country"]').text();
         var adminarea1 = $('[data-geo="administrative_area_level_1"]').text();
         var adminarea2 = $('[data-geo="administrative_area_level_2"]').text();
@@ -553,7 +554,7 @@ $(document).ready(function () {
         $.ajax({
             type:"POST",
             data:{'country':country, 'adminarea1':adminarea1, 'adminarea2':adminarea2, 'locality': locality, 'sublocality': sublocality, 'name': name},
-            url:Routing.generate('razmetka_add_football_team'),
+            url:Routing.generate('moi_kubki_add_football_team'),
             success:function(data) {
                 alert(data);
             }

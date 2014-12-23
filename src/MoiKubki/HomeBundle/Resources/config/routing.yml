@@ -1,3 +1,4 @@
 moi_kibku_home_homepage:
     path:     /office
     defaults: { _controller: MoiKubkiHomeBundle:Office:index }
+

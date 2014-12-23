@@ -93,7 +93,14 @@
                     <div class="row">
                         <!-- Page heading -->
                         <!-- Mini status -->
-
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                            <a class="raz-btn" href="{{ path('fos_user_security_logout') }}">
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        {% else %}
+                            <a class="raz-btn" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                        {% endif %}
                         <!-- Icons -->
 
                     </div>
@@ -201,6 +208,9 @@
     <!-- Custom JS -->
     <script src="{{ asset('js/custom.notification.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
+    <!-- FOSJsRoutingBundle -->
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
 
 

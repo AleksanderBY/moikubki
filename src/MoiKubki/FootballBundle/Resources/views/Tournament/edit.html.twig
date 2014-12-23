@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block page_title %} Редактирование турнира {% endblock %}
+
+{% block bl1 %}
+    Теперь вы можете приступить к редактированию турнира. Начать можно с любого пункта
+
+    <ul>
+        <li> <a href="{{ path('moi_kubki_football_editteams',{'ID':ID}) }}">Редактировать список команд</a> </li>
+    </ul>
+
+{% endblock %}

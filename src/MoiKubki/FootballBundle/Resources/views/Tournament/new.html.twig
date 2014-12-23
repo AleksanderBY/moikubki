@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block page_title %} Создание нового турнира {% endblock %}
+
+{% block bl1 %}
+
+    <form role="form" action="{{ path('moi_kubki_football_new') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <input class="btn btn-default" type="submit" />
+    </form>
+
+{% endblock %}

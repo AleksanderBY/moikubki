@@ -1,0 +1,41 @@
+{% extends '::base.html.twig' %}
+
+
+{% block bl1 %}
+    <nav>
+        <ul class="pager">
+            <li class="previous"></span><a href="#"><span class="glyphicon glyphicon-arrow-left"> Общие настройки</a></li>
+            <li class="next"><a href="#">Настройки этапов </a></li>
+        </ul>
+    </nav>
+
+    <div class="widget">
+        <div class="widget-head">
+            <h4>Редактирование списка команд</h4>
+        </div>
+        <div class="widget-body no-padd">
+
+            <h5>Добавить команду</h5>
+
+            <div id="country_div">
+                {{ render(controller(
+                'MoiKubkiHomeBundle:Form:geoAdminUnit'
+                )) }}
+            </div>
+
+            <input id="myfilter" type="text" class="form-control" placeholder="Фильтр команд">
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    {{ parent() }}
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places&language=ru"></script>
+    <script src="{{ asset('js/jquery.geocomplete.min.js') }}"></script>
+    <script src="{{ asset('js/my.js') }}"></script>
+
+
+{% endblock scripts %}

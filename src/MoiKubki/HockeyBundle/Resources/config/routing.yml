@@ -1,0 +1,3 @@
+moikubki_hockey_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: MoikubkiHockeyBundle:Default:index }
