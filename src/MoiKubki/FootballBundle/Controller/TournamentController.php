@@ -78,9 +78,9 @@ class TournamentController extends Controller
     }
 
     //Редактирование списка команд турнира
-    public function editTeamsAction($ID)
+    public function editTeamsAction($id)
     {
-        return $this->render('MoiKubkiFootballBundle:tournament:editTeams.html.twig', array('ID' =>$ID));
+        return $this->render('MoiKubkiFootballBundle:tournament:editTeams.html.twig', array('id' =>$id));
     }
 
     //Добавление команды в базу
@@ -93,8 +93,8 @@ class TournamentController extends Controller
             $adminarea2= $request->get('adminarea2');
             $locality = $request->get('locality');
             $sublocality = $request->get('sublocality');
-            $name = $request->get('name');
-            $em = $this->getDoctrine()->getManager();
+            //$name = $request->get('name');
+            /**$em = $this->getDoctrine()->getManager();
             $repository = $em->getRepository('MoiKubkiHomeBundle:AdminUnit');
             $query = $repository->createQueryBuilder('p')
                 ->where('p.country = :country AND p.adminarea1 = :adminarea1 AND p.adminarea2 = :adminarea2 AND p.locality = :locality AND p.sublocality = :sublocality')
@@ -108,17 +108,33 @@ class TournamentController extends Controller
                 $adminUnit->setCountry($country)->setAdminarea1($adminarea1)->setAdminarea2($adminarea2)->setLocality($locality)->setSublocality($sublocality);
                 $em->persist($adminUnit);
             }
-
-
             $team = new TeamFC();
             $team->setName($name);
             $team->setAdminUnit($adminUnit);
             $em->persist($team);
-            $em->flush();
+            $em->flush();*/
 
             return new Response($country.' '.$adminarea1.' '.$adminarea2. ' '.$locality.' '.$sublocality);
         }
         return new Response('Это не POST');
+    }
 
+    //Извлечение команды для турнира из базы
+    public function getTeamsFromTournamentAction($id, Request $request)
+    {
+        if ($request->getMethod() == 'POST')
+        {
+            $data = $request->get('filter');
+            $teams = $this->getDoctrine()->getManager()->getRepository('MoiKubkiFootballBundle:TeamFC')->
+                createQueryBuilder('p')
+                ->where('p.name LIKE :filter AND p.tournament = :id')
+                ->setParameters(array('filter' => '%'.$data.'%', 'id' => $id))
+                ->getQuery()
+                ->getResult();
+
+        }
+        else $teams =  $this->getDoctrine()->getRepository('MoiKubkiFootballBundle:TeamFC')->findBy(array('tournament'=>$id));
+
+        return $this->render('MoiKubkiFootballBundle:Tournament:getTeamsFromTournament.html.twig', array('teams' => $teams ));
     }
 } 

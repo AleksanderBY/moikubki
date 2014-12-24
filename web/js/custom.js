@@ -544,7 +544,6 @@ $(document).ready(function () {
 //отправляем запрос на добавление новой команды
 $(document).ready(function () {
     $('#createTeam').click(function () {
-
         var country = $('[data-geo="country"]').text();
         var adminarea1 = $('[data-geo="administrative_area_level_1"]').text();
         var adminarea2 = $('[data-geo="administrative_area_level_2"]').text();
@@ -577,7 +576,7 @@ $(document).ready(
                     $.ajax({
                         type:"POST",
                         data:{'filter':$('#myfilter').val()},
-                        url:Routing.generate('razmetka_get_team_in_tournament',{'id':id}),
+                        url:Routing.generate('moi_kubki_get_team_from_tournament',{'id':id}),
                         success: function(data) {
                             $('#teams_list').html(data);
                         }

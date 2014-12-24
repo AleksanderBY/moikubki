@@ -4,7 +4,7 @@
 {% block bl1 %}
     <nav>
         <ul class="pager">
-            <li class="previous"></span><a href="#"><span class="glyphicon glyphicon-arrow-left"> Общие настройки</a></li>
+            <li class="previous"><a href="#"><span class="glyphicon glyphicon-arrow-left">Общие настройки</span></a></li>
             <li class="next"><a href="#">Настройки этапов </a></li>
         </ul>
     </nav>
@@ -13,7 +13,7 @@
         <div class="widget-head">
             <h4>Редактирование списка команд</h4>
         </div>
-        <div class="widget-body no-padd">
+        <div class="widget-body">
 
             <h5>Добавить команду</h5>
 
@@ -23,7 +23,15 @@
                 )) }}
             </div>
 
+            <hr>
+
             <input id="myfilter" type="text" class="form-control" placeholder="Фильтр команд">
+
+            <div id="teams_list" class="table-responsive" value="{{ id }}">
+                {{ render(controller(
+                'MoiKubkiFootballBundle:Tournament:getTeamsFromTournament',{'id': id}
+                )) }}
+            </div>
 
         </div>
     </div>

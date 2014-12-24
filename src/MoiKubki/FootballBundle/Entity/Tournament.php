@@ -229,6 +229,7 @@ class Tournament
     public function __construct()
     {
         $this->stages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
         $this->settings = new Settings();
     }
 
@@ -268,10 +269,10 @@ class Tournament
     /**
      * Add teams
      *
-     * @param \MoiKubki\FootballBundle\Entity\TeamsFC $teams
+     * @param \MoiKubki\FootballBundle\Entity\TeamFC $teams
      * @return Tournament
      */
-    public function addTeam(\MoiKubki\FootballBundle\Entity\TeamsFC $teams)
+    public function addTeam(\MoiKubki\FootballBundle\Entity\TeamFC $teams)
     {
         $this->teams[] = $teams;
     
@@ -281,9 +282,9 @@ class Tournament
     /**
      * Remove teams
      *
-     * @param \MoiKubki\FootballBundle\Entity\TeamsFC $teams
+     * @param \MoiKubki\FootballBundle\Entity\TeamFC $teams
      */
-    public function removeTeam(\MoiKubki\FootballBundle\Entity\TeamsFC $teams)
+    public function removeTeam(\MoiKubki\FootballBundle\Entity\TeamFC $teams)
     {
         $this->teams->removeElement($teams);
     }
