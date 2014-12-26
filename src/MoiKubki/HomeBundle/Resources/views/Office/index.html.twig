@@ -1,1 +1,174 @@
 {% extends '::base.html.twig' %}
+
+{% block page_title %} Личный кабинет {% endblock %}
+
+{% block bl1 %}
+
+    <div class="page-tabs">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#profile">Мой профиль</a></li>
+        <li><a data-toggle="tab" href="#update">Мои фавориты</a></li>
+        <li><a data-toggle="tab" href="#activity">Мои турниры</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+
+    <!-- Profile tab -->
+    <div id="profile" class="tab-pane fade active in">
+        <h4>Профиль</h4>
+
+        <div class="row">
+            <div class="col-md-3 col-sm-3 text-center">
+                <!-- Profile pic -->
+                <a href="#"><img alt="" class="img-thumbnail img-circle img-responsive" src="{{ asset('theme/img/user-big.jpg') }} "></a>
+            </div>
+            <div class="col-md-9 col-sm-9">
+                <!-- Profile details -->
+                <table class="table table-bordered">
+
+                    <tbody><tr>
+                        <td class="active"><strong>Name</strong></td>
+                        <td>{{ user.getUsername }}</td>
+                    </tr>
+                    <tr>
+                        <td class="active"><strong>Email</strong></td>
+                        <td>{{ user.getEmail }}</td>
+                    </tr>
+
+                    </tbody></table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Update profile tab -->
+    <div id="update" class="tab-pane fade">
+    <h4>Update Profile</h4>
+
+    <form class="form-horizontal">
+    <!-- Name -->
+    <div class="form-group">
+        <label for="name1" class="control-label col-lg-2">Name</label>
+        <div class="col-lg-6">
+            <input type="text" id="name1" class="form-control">
+        </div>
+    </div>
+    <!-- Email -->
+    <div class="form-group">
+        <label for="email1" class="control-label col-lg-2">Email</label>
+        <div class="col-lg-6">
+            <input type="text" id="email1" class="form-control">
+        </div>
+    </div>
+    <!-- Telephone -->
+    <div class="form-group">
+        <label for="telephone" class="control-label col-lg-2">Telephone</label>
+        <div class="col-lg-6">
+            <input type="text" id="telephone" class="form-control">
+        </div>
+    </div>
+    <!-- Address -->
+    <div class="form-group">
+        <label for="address" class="control-label col-lg-2">Address</label>
+        <div class="col-lg-6">
+            <textarea id="address" class="form-control"></textarea>
+        </div>
+    </div>
+    <!-- State -->
+    <div class="form-group">
+        <label for="city" class="control-label col-lg-2">State</label>
+        <div class="col-lg-6">
+            <input type="text" id="state" class="form-control">
+        </div>
+    </div>
+    <!-- City -->
+    <div class="form-group">
+        <label for="city" class="control-label col-lg-2">City</label>
+        <div class="col-lg-6">
+            <input type="text" id="city" class="form-control">
+        </div>
+    </div>
+    <!-- Username -->
+    <div class="form-group">
+        <label for="username2" class="control-label col-lg-2">Username</label>
+        <div class="col-lg-6">
+            <input type="text" id="username2" class="form-control">
+        </div>
+    </div>
+    <!-- Password -->
+    <div class="form-group">
+        <label for="password2" class="control-label col-lg-2">Password</label>
+        <div class="col-lg-6">
+            <input type="password" id="password2" class="form-control">
+        </div>
+    </div>
+    <!-- Checkbox -->
+    <div class="form-group">
+        <div class="col-lg-6 col-lg-offset-2">
+
+            <label class="checkbox inline">
+                <input type="checkbox" value="agree" id="inlineCheckbox3"> Agree with Terms and Conditions
+            </label>
+        </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="form-group">
+        <!-- Buttons -->
+        <div class="col-lg-6 col-lg-offset-2">
+            <button class="btn btn-info" type="submit">Update</button>
+            <button class="btn btn-default" type="reset">Reset</button>
+        </div>
+    </div>
+    </form>
+
+    </div>
+
+    <!-- Activity tab -->
+    <div id="activity" class="tab-pane fade">
+        <h4>Мои турниры</h4>
+
+        <!-- Recent activity table -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <tbody><tr class="active">
+                    <th>Название</th>
+                    <th>Создан</th>
+                    <th>Вид спорта</th>
+                    <th>Статус</th>
+                    <th></th>
+                </tr>
+
+                {% for myTournament in myTournaments %}
+                    <tr>
+                        <td>{{ myTournament.getName }}</td>
+                        <td>{{ myTournament.getDateCreate|date("m/d/Y") }}</td>
+                        <td>Футбол</td>
+                        <td>текущий</td>
+                        <td>
+                            <a href="{{ path('moi_kubki_football_edit', {'ID': myTournament.getId  }) }}" class="btn btn-xs btn-success">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+
+                </tbody></table>
+        </div>
+
+        <a class="btn btn-default" href="{{ path('moi_kubki_football_new') }}">
+            Создать новый
+        </a>
+
+
+    </div>
+
+    </div>
+
+    </div>
+
+{% endblock %}

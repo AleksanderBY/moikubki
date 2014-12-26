@@ -553,7 +553,7 @@ $(document).ready(function () {
         $.ajax({
             type:"POST",
             data:{'country':country, 'adminarea1':adminarea1, 'adminarea2':adminarea2, 'locality': locality, 'sublocality': sublocality, 'name': name},
-            url:Routing.generate('razmetka_add_football_team'),
+            url:Routing.generate('moi_kubki_add_football_team'),
             success:function(data) {
                 alert(data);
             }
@@ -576,7 +576,7 @@ $(document).ready(
                     $.ajax({
                         type:"POST",
                         data:{'filter':$('#myfilter').val()},
-                        url:Routing.generate('razmetka_get_team_in_tournament',{'id':id}),
+                        url:Routing.generate('moi_kubki_get_team_from_tournament',{'id':id}),
                         success: function(data) {
                             $('#teams_list').html(data);
                         }

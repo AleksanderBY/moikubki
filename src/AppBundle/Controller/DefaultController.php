@@ -12,7 +12,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $asd = 12;
 		return $this->render('default/index.html.twig');
     }
 }

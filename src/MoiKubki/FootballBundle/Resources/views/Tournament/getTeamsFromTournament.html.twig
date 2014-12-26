@@ -1,0 +1,37 @@
+<table class="table table-bordered">
+    <tbody>
+    <tr class="active">
+        <th>
+            Название
+        </th>
+        <th>
+            Город
+        </th>
+        <th>
+            Страна
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    {% for team in teams %}
+        <tr>
+            <td>
+                {{ team.getName }}
+            </td>
+            <td>
+                {{ team.getAdminUnit.getLocality }}
+            </td>
+            <td>
+                {{ team.getAdminUnit.getCountry }}
+            </td>
+            <td>
+                <a href="#" type="button" class="btn btn-danger btn-xs">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
