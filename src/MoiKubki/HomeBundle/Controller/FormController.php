@@ -11,7 +11,7 @@ class FormController extends Controller
         $form = $this->createFormBuilder()
             ->add('settlement', 'text', array('label' => 'Населенный пункт' , 'label_attr' => array('id'=>'geocomplete')))
             ->add('name', 'text', array('label' => 'Название команды'))
-            ->add('country', 'hidden', array('attr'=> array('data-geo' => 'country')))
+            ->add('country', 'hidden', array('attr'=> array('name' => 'country')))
             ->add('administrative_area_level_1', 'hidden', array('attr'=> array('data-geo' => 'administrative_area_level_1')))
             ->add('administrative_area_level_2', 'hidden', array('attr'=> array('data-geo' => 'administrative_area_level_2')))
             ->add('locality', 'hidden', array('attr'=> array('data-geo' => 'locality')))

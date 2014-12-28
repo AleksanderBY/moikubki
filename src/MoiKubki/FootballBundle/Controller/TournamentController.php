@@ -64,7 +64,7 @@ class TournamentController extends Controller
                 $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
                 $aclProvider->updateAcl($acl);
 
-                return $this->redirect($this->generateUrl('moi_kubki_football_edit', array('ID' => $tournament->getId())));
+                return $this->redirect($this->generateUrl('moi_kubki_football_edit', array('id' => $tournament->getId())));
             }
         }
 
@@ -72,9 +72,9 @@ class TournamentController extends Controller
     }
 
     //Редактирование и настройка турнира ЗАГЛУШКА
-    public function editAction($ID)
+    public function editAction($id)
     {
-        return $this->render('MoiKubkiFootballBundle:tournament:edit.html.twig', array('ID' =>$ID));
+        return $this->render('MoiKubkiFootballBundle:tournament:edit.html.twig', array('id' =>$id));
     }
 
     //Редактирование списка команд турнира
