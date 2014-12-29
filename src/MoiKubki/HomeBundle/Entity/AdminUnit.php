@@ -33,14 +33,14 @@ class AdminUnit
      *
      * @ORM\Column(name="adminarea1", type="string", length=50)
      */
-    private $adminarea1;
+    private $administrative_area_level_1;
 
     /**
      * @var string
      *
      * @ORM\Column(name="adminarea2", type="string", length=50)
      */
-    private $adminarea2;
+    private $administrative_area_level_2;
 
     /**
      * @var string
@@ -94,51 +94,7 @@ class AdminUnit
         return $this->country;
     }
 
-    /**
-     * Set adminarea1
-     *
-     * @param string $adminarea1
-     * @return AdminUnit
-     */
-    public function setAdminarea1($adminarea1)
-    {
-        $this->adminarea1 = $adminarea1;
-    
-        return $this;
-    }
 
-    /**
-     * Get adminarea1
-     *
-     * @return string 
-     */
-    public function getAdminarea1()
-    {
-        return $this->adminarea1;
-    }
-
-    /**
-     * Set adminarea2
-     *
-     * @param string $adminarea2
-     * @return AdminUnit
-     */
-    public function setAdminarea2($adminarea2)
-    {
-        $this->adminarea2 = $adminarea2;
-    
-        return $this;
-    }
-
-    /**
-     * Get adminarea2
-     *
-     * @return string 
-     */
-    public function getAdminarea2()
-    {
-        return $this->adminarea2;
-    }
 
     /**
      * Set locality
@@ -224,5 +180,51 @@ class AdminUnit
     public function getTeamsFC()
     {
         return $this->teamsFC;
+    }
+
+    /**
+     * Set administrative_area_level_1
+     *
+     * @param string $administrativeAreaLevel1
+     * @return AdminUnit
+     */
+    public function setAdministrativeAreaLevel1($administrativeAreaLevel1)
+    {
+        $this->administrative_area_level_1 = $administrativeAreaLevel1;
+    
+        return $this;
+    }
+
+    /**
+     * Get administrative_area_level_1
+     *
+     * @return string 
+     */
+    public function getAdministrativeAreaLevel1()
+    {
+        return $this->administrative_area_level_1;
+    }
+
+    /**
+     * Set administrative_area_level_2
+     *
+     * @param string $administrativeAreaLevel2
+     * @return AdminUnit
+     */
+    public function setAdministrativeAreaLevel2($administrativeAreaLevel2)
+    {
+        $this->administrative_area_level_2 = $administrativeAreaLevel2;
+    
+        return $this;
+    }
+
+    /**
+     * Get administrative_area_level_2
+     *
+     * @return string 
+     */
+    public function getAdministrativeAreaLevel2()
+    {
+        return $this->administrative_area_level_2;
     }
 }

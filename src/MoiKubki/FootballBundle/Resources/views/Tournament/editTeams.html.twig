@@ -17,10 +17,12 @@
 
             <h5>Добавить команду</h5>
 
+
             <div id="country_div">
-                {{ render(controller(
-                'MoiKubkiHomeBundle:Form:geoAdminUnit'
-                )) }}
+                <input id="adminunit" type="text" class="form-control" placeholder="Фильтр команд">
+                {{ form_start(form, {'action': path('moi_kubki_football_editteams', {'id':1})}) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
             </div>
 
             <hr>

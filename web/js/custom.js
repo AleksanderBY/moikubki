@@ -534,9 +534,8 @@ $(document).ready(function(){
 
 //Подключение библиотеки поиска географических названий от Google
 $(document).ready(function () {
-    $('#form_settlement').geocomplete({
-        details: ".details",
-        detailsAttribute: "data-geo",
+    $('#adminunit').geocomplete({
+        details: "form",
         types: ['(regions)']
     });
 })

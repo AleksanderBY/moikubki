@@ -7,12 +7,11 @@ use MoiKubki\FootballBundle\Entity\Group;
 use MoiKubki\FootballBundle\Entity\Stage;
 use MoiKubki\FootballBundle\Entity\TeamFC;
 use MoiKubki\FootballBundle\Entity\Tournament;
+use MoiKubki\FootballBundle\Form\Type\TeamFCType;
 use MoiKubki\FootballBundle\Form\Type\TournamentType;
-use MoiKubki\HomeBundle\Entity\AdminUnit;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
@@ -64,7 +63,7 @@ class TournamentController extends Controller
                 $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
                 $aclProvider->updateAcl($acl);
 
-                return $this->redirect($this->generateUrl('moi_kubki_football_edit', array('ID' => $tournament->getId())));
+                return $this->redirect($this->generateUrl('moi_kubki_football_edit', array('id' => $tournament->getId())));
             }
         }
 
@@ -72,27 +71,40 @@ class TournamentController extends Controller
     }
 
     //Редактирование и настройка турнира ЗАГЛУШКА
-    public function editAction($ID)
+    public function editAction($id)
     {
-        return $this->render('MoiKubkiFootballBundle:tournament:edit.html.twig', array('ID' =>$ID));
+        return $this->render('MoiKubkiFootballBundle:tournament:edit.html.twig', array('id' =>$id));
     }
 
     //Редактирование списка команд турнира
-    public function editTeamsAction($id)
+    public function editTeamsAction(Request $request, $id)
     {
-        return $this->render('MoiKubkiFootballBundle:tournament:editTeams.html.twig', array('id' =>$id));
+        $team = new TeamFC();
+        $form = $this->createForm(new TeamFCType(), $team);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            $fo = $request->request->get('country');
+
+            return new Response($team->getName());
+
+        }
+
+        return $this->render('MoiKubkiFootballBundle:tournament:editTeams.html.twig', array('id' =>$id, 'form' => $form->createView() ));
     }
 
     //Добавление команды в базу
-    public function addTeamAction(Request $request)
+    public function addTeamAction(Request $request, $method)
     {
-        if ($request->getMethod() == 'POST')
+        $team = new TeamFC();
+        $form = $this->createForm(new TeamFCType(), $team);
+        if ($method == 'POST')
         {
-            $country = $request->get('country');
-            $adminarea1= $request->get('adminarea1');
-            $adminarea2= $request->get('adminarea2');
-            $locality = $request->get('locality');
-            $sublocality = $request->get('sublocality');
+            //$country = $request->get('country');
+            //$adminarea1= $request->get('adminarea1');
+            //$adminarea2= $request->get('adminarea2');
+            //$locality = $request->get('locality');
+            //$sublocality = $request->get('sublocality');
             //$name = $request->get('name');
             /**$em = $this->getDoctrine()->getManager();
             $repository = $em->getRepository('MoiKubkiHomeBundle:AdminUnit');
@@ -114,9 +126,9 @@ class TournamentController extends Controller
             $em->persist($team);
             $em->flush();*/
 
-            return new Response($country.' '.$adminarea1.' '.$adminarea2. ' '.$locality.' '.$sublocality);
+            return new Response('post');
         }
-        return new Response('Это не POST');
+        return $this->render('MoiKubkiFootballBundle:Tournament:addTeam.html.twig', array('form' => $form->createView()));
     }
 
     //Извлечение команды для турнира из базы

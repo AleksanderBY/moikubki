@@ -3,6 +3,7 @@
 namespace MoiKubki\FootballBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MoiKubki\HomeBundle\Entity\AdminUnit;
 
 /**
  * TeamFC
@@ -41,6 +42,14 @@ class TeamFC
      *
      */
     private $tournament;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->adminUnit = new AdminUnit();
+    }
 
     /**
      * Get id
