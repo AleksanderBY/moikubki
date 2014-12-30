@@ -1,5 +1,6 @@
 {% extends '::base.html.twig' %}
 
+{% block page_title %} Редактор: {{ tournament.name }} {% endblock %}
 
 {% block bl1 %}
     <nav>
@@ -17,15 +18,18 @@
 
             <h5>Добавить команду</h5>
 
-
             <div id="country_div">
-                <input id="adminunit" type="text" class="form-control" placeholder="Фильтр команд">
-                {{ form_start(form, {'action': path('moi_kubki_football_editteams', {'id':1})}) }}
-                {{ form_widget(form) }}
-                {{ form_end(form) }}
-            </div>
 
-            <hr>
+
+
+                {{ render(controller(
+                'MoiKubkiFootballBundle:Tournament:addTeam'
+                )) }}
+
+                <button id="createTeam" class="btn btn-block">Добавить команду</button>
+
+                <hr>
+               <h5>Зарегистрированные команды</h5>
 
             <input id="myfilter" type="text" class="form-control" placeholder="Фильтр команд">
 

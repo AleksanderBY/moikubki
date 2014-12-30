@@ -13,14 +13,14 @@
 {% endblock %}
 
 
+
 {% block widget_attributes -%}
-    {% set originname = originname|default(true) -%}
     id="{{ id }}"
-    {%- if originname %}  name="{{ name }}"
+    {% if short_name %}
+        name="{{ name }}"
     {% else %}
         name="{{ full_name }}"
-    {% endif -%}
-
+    {% endif %}
     {%- if read_only %} readonly="readonly"{% endif -%}
     {%- if disabled %} disabled="disabled"{% endif -%}
     {%- if required %} required="required"{% endif -%}
@@ -35,3 +35,5 @@
         {%- endif -%}
     {%- endfor -%}
 {%- endblock widget_attributes %}
+
+

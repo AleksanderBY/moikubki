@@ -535,7 +535,8 @@ $(document).ready(function(){
 //Подключение библиотеки поиска географических названий от Google
 $(document).ready(function () {
     $('#adminunit').geocomplete({
-        details: "form",
+        details: ".details",
+        detailsAttribute: "data-geo",
         types: ['(regions)']
     });
 })
@@ -548,10 +549,12 @@ $(document).ready(function () {
         var adminarea2 = $('[data-geo="administrative_area_level_2"]').text();
         var locality = $('[data-geo="locality"]').text();
         var sublocality = $('[data-geo="sublocality"]').text();
-        var name = $('#form_name').val();
+        var name = $('#name_team').val();
+        var id = $('#teams_list').attr('value');
+        var token = $('[name="_token"]').val();
         $.ajax({
             type:"POST",
-            data:{'country':country, 'adminarea1':adminarea1, 'adminarea2':adminarea2, 'locality': locality, 'sublocality': sublocality, 'name': name},
+            data:{'country':country, 'adminarea1':adminarea1, 'adminarea2':adminarea2, 'locality': locality, 'sublocality': sublocality, 'name': name, 'id':id, '_token':token},
             url:Routing.generate('moi_kubki_add_football_team'),
             success:function(data) {
                 alert(data);

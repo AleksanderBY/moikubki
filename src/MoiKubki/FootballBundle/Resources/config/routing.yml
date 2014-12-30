@@ -6,7 +6,7 @@ moi_kubki_football_edit:
     path:     /edit/{id}
     defaults: { _controller: MoiKubkiFootballBundle:Tournament:edit }
     requirements:
-            ID:  \d+
+            id:  \d+
 
 moi_kubki_football_editteams:
     path:     /edit/teams/{id}
@@ -22,4 +22,10 @@ moi_kubki_get_team_from_tournament:
     path:     /getteamsfromtournament/{id}
     defaults: { _controller: MoiKubkiFootballBundle:Tournament:getTeamsFromTournament }
     options:
-      expose: true
+            expose: true
+
+moi_kubki_football_show:
+    path:     /show/{id}
+    defaults: { _controller: MoiKubkiFootballBundle:Tournament:show }
+    requirements:
+                id:  \d+

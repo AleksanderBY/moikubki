@@ -2,3 +2,7 @@ services:
 #    moi_kibku_home.example:
 #        class: MoiKibku\HomeBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+    moi_kubki_home_bundle.admin_unit_type_extension:
+        class: MoiKubki\HomeBundle\Form\Extension\AdminUnitTypeExtension
+        tags:
+            - { name: form.type_extension, alias: hidden }

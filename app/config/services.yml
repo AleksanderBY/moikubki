@@ -7,3 +7,7 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+ moi_kubki_home_bundle.admin_unit_type_extension:
+        class: MoiKubki\HomeBundle\Form\Extension\AdminUnitTypeExtension
+        tags:
+            - { name: form.type_extension, alias: form }
