@@ -30,6 +30,20 @@ class Stage
 
     /**
      *
+     * @ORM\OneToOne(targetEntity="Stage")
+     *
+     */
+    private $prev;
+
+    /**
+     *
+     * @ORM\OneToOne(targetEntity="Stage")
+     *
+     */
+    private $next;
+
+    /**
+     *
      * @ORM\ManyToOne(targetEntity="Tournament", inversedBy="stages")
      */
     private $tournament;
@@ -135,5 +149,51 @@ class Stage
     public function getGroups()
     {
         return $this->groups;
+    }
+
+    /**
+     * Set prev
+     *
+     * @param \MoiKubki\FootballBundle\Entity\Stage $prev
+     * @return Stage
+     */
+    public function setPrev(\MoiKubki\FootballBundle\Entity\Stage $prev = null)
+    {
+        $this->prev = $prev;
+    
+        return $this;
+    }
+
+    /**
+     * Get prev
+     *
+     * @return \MoiKubki\FootballBundle\Entity\Stage 
+     */
+    public function getPrev()
+    {
+        return $this->prev;
+    }
+
+    /**
+     * Set next
+     *
+     * @param \MoiKubki\FootballBundle\Entity\Stage $next
+     * @return Stage
+     */
+    public function setNext(\MoiKubki\FootballBundle\Entity\Stage $next = null)
+    {
+        $this->next = $next;
+    
+        return $this;
+    }
+
+    /**
+     * Get next
+     *
+     * @return \MoiKubki\FootballBundle\Entity\Stage 
+     */
+    public function getNext()
+    {
+        return $this->next;
     }
 }

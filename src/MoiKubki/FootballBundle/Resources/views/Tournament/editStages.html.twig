@@ -5,22 +5,20 @@
 {% block bl1 %}
     <nav>
         <ul class="pager">
-            <li class="previous"><a href="#"><span class="glyphicon glyphicon-arrow-left">Общие настройки</span></a></li>
-            <li class="next"><a href="{{ path('moi_kubki_football_editstages',{'id':id}) }}">Настройки этапов </a></li>
+            <li class="previous"><a href="{{ path('moi_kubki_football_editteams',{'id':id}) }}"><span class="glyphicon glyphicon-arrow-left">Список команд</span></a></li>
+            <li class="next"><a href="#">Настройка групп </a></li>
         </ul>
     </nav>
 
     <div class="widget">
         <div class="widget-head">
-            <h4>Редактирование списка команд</h4>
+            <h4>Редактирование этапов</h4>
         </div>
         <div class="widget-body">
 
-            <h5>Добавить команду</h5>
+            <h5>Этапы турнира</h5>
 
             <div id="country_div">
-
-
 
                 {{ render(controller(
                 'MoiKubkiFootballBundle:Tournament:addTeam'

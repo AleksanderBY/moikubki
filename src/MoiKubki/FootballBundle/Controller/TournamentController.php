@@ -283,9 +283,25 @@ class TournamentController extends Controller
         return new Response('Удалено');
     }
 
-    public function editStages($id)
+    public function editStagesAction($id)
     {
-        
+        $tournament = $this->getDoctrine()->getRepository('MoiKubkiFootballBundle:Tournament')->find($id);
+        if (!$tournament)
+        {
+            return new Response('Турнир не найден', 404);
+        }
+        //Проверяем права на редактирование турнира
+        $authorizationChecker = $this->get('security.authorization_checker');
+        if (false === $authorizationChecker->isGranted('EDIT', $tournament)) {
+            return $this->redirect($this->generateUrl('moi_kubki_football_show', array('id'=>$id)));
+        }
+        else
+        {
+            //Генерим токен для турнира
+            $tournament_token = 'tournament'.$id;
+            $this->get('form.csrf_provider')->generateCsrfToken('tournament'.$id);
+            return $this->render('MoiKubkiFootballBundle:tournament:editStages.html.twig', array('id' => $id, 'tournament' => $tournament, 'tournament_token' => $tournament_token));
+        }
     }
 
     public function showAction($id)
