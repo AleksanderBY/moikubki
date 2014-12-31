@@ -57,6 +57,13 @@ class AdminUnit
     private $sublocality;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="google_id", type="string", length=40)
+     */
+    private $google_id;
+
+    /**
      * @ORM\OneToMany(targetEntity="MoiKubki\FootballBundle\Entity\TeamFC", mappedBy="adminUnit")
      */
     private $teamsFC;
@@ -226,5 +233,28 @@ class AdminUnit
     public function getAdministrativeAreaLevel2()
     {
         return $this->administrative_area_level_2;
+    }
+
+    /**
+     * Set google_id
+     *
+     * @param string $googleId
+     * @return AdminUnit
+     */
+    public function setGoogleId($googleId)
+    {
+        $this->google_id = $googleId;
+    
+        return $this;
+    }
+
+    /**
+     * Get google_id
+     *
+     * @return string 
+     */
+    public function getGoogleId()
+    {
+        return $this->google_id;
     }
 }

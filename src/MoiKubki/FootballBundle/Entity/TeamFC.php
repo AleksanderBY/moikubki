@@ -3,7 +3,6 @@
 namespace MoiKubki\FootballBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use MoiKubki\HomeBundle\Entity\AdminUnit;
 
 /**
  * TeamFC
@@ -31,7 +30,7 @@ class TeamFC
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="MoiKubki\HomeBundle\Entity\AdminUnit", inversedBy="TeamsFC")
+     * @ORM\ManyToOne(targetEntity="MoiKubki\HomeBundle\Entity\AdminUnit", inversedBy="teamsFC")
      *
      */
     private $adminUnit;

@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-use Symfony\Component\Form\Tests\Extension\Csrf\CsrfProvider\DefaultCsrfProviderTest;
 
 
 class TournamentController extends Controller
@@ -68,10 +67,7 @@ class TournamentController extends Controller
                 $acl->insertObjectAce($securityIdentity, $mask);
                 $aclProvider->updateAcl($acl);
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 73c1129a663389e70f915b6d392f68fc1a3f4de0
                 return $this->redirect($this->generateUrl('moi_kubki_football_edit', array('id' => $tournament->getId())));
             }
         }
@@ -83,10 +79,13 @@ class TournamentController extends Controller
     //Редактирование и настройка турнира ЗАГЛУШКА
     public function editAction($id)
     {
-<<<<<<< HEAD
+        $tournament = $this->getDoctrine()->getRepository('MoiKubkiFootballBundle:Tournament')->find($id);
+        if (!$tournament)
+        {
+          return new Response('Турнир не найден');
+        }
         //Проверяем права на редактирование турнира
         $authorizationChecker = $this->get('security.authorization_checker');
-        $tournament = $this->getDoctrine()->getRepository('MoiKubkiFootballBundle:Tournament')->find($id);
         if (false === $authorizationChecker->isGranted('EDIT', $tournament)) {
             return $this->redirect($this->generateUrl('moi_kubki_football_show', array('id'=>$id)));
         }
@@ -95,103 +94,125 @@ class TournamentController extends Controller
             return $this->render('MoiKubkiFootballBundle:tournament:edit.html.twig', array('id' =>$id));
         }
 
-=======
-        return $this->render('MoiKubkiFootballBundle:tournament:edit.html.twig', array('id' =>$id));
->>>>>>> 73c1129a663389e70f915b6d392f68fc1a3f4de0
     }
 
     //Редактирование списка команд турнира
     public function editTeamsAction(Request $request, $id)
     {
+
+        $tournament = $this->getDoctrine()->getRepository('MoiKubkiFootballBundle:Tournament')->find($id);
+        if (!$tournament)
+        {
+            return new Response('Турнир не найден', 404);
+        }
         //Проверяем права на редактирование турнира
         $authorizationChecker = $this->get('security.authorization_checker');
-        $tournament = $this->getDoctrine()->getRepository('MoiKubkiFootballBundle:Tournament')->find($id);
         if (false === $authorizationChecker->isGranted('EDIT', $tournament)) {
             return $this->redirect($this->generateUrl('moi_kubki_football_show', array('id'=>$id)));
         }
         else
         {
-            return $this->render('MoiKubkiFootballBundle:tournament:editTeams.html.twig', array('id' => $id, 'tournament' => $tournament));
+            //Генерим токен для турнира
+            $tournament_token = 'tournament'.$id;
+            $this->get('form.csrf_provider')->generateCsrfToken('tournament'.$id);
+            return $this->render('MoiKubkiFootballBundle:tournament:editTeams.html.twig', array('id' => $id, 'tournament' => $tournament, 'tournament_token' => $tournament_token));
         }
-
-
     }
 
     //Добавление команды в базу
     public function addTeamAction(Request $request)
     {
-
-
         //Проверяем метод запроса
         if ($request->getMethod() == 'POST')
         {
-            //Проверяет данные
+
+            //Считываем и проверяем целостность данных запроса
+            $country = $request->get('country');
+            $adminarea1= $request->get('adminarea1');
+            $adminarea2= $request->get('adminarea2');
+            $locality = $request->get('locality');
+            $sublocality = $request->get('sublocality');
+            $id_admin = $request->get('id_admin');
+            $token = $request->get('_token');
             $id = $request->get('id');
-            if ($id !== '')
+            $name = $request->get('name');
+
+            if (!isset($id_admin, $id, $country, $adminarea1, $adminarea2, $locality, $sublocality, $token, $name))
             {
-                //проверяем токен
-                $token = $request->get('_token');
-                if ($this->get('form.csrf_provider')->isCsrfTokenValid('intention', $token))
-                {
-                    //получаем данные и запроса
-
-                    $name = $request->get('name');
-                    if ($name !== '')
-                    {
-                        $em = $this->getDoctrine()->getManager();
-                        $query = $em->getRepository('MoiKubkiFootballBundle:TeamFC')
-                        ->createQueryBuilder('p')
-                        ->where('p.name = :name AND p.tournament = :tournament')
-                        ->setParameters(array('name' => $name , 'tournament' => $id))
-                        ->setMaxResults(1)
-                        ->getQuery();
-                        $team = $query->getResult();
-                        if ($team) {
-                            return new Response('Команда с таким название в уже внесена в турнир');
-                        }
-                        $country = $request->get('country');
-                        $adminarea1= $request->get('adminarea1');
-                        $adminarea2= $request->get('adminarea2');
-                        $locality = $request->get('locality');
-                        $sublocality = $request->get('sublocality');
-
-                        $repository = $em->getRepository('MoiKubkiHomeBundle:AdminUnit');
-                        $query = $repository->createQueryBuilder('p')
-                            ->where('p.country = :country AND p.administrative_area_level_1 = :adminarea1 AND p.administrative_area_level_2 = :adminarea2 AND p.locality = :locality AND p.sublocality = :sublocality')
-                            ->setParameters(array('country' => $country , 'adminarea1' => $adminarea1, 'adminarea2' => $adminarea2, 'locality' => $locality, 'sublocality' =>$sublocality))
-                            ->setMaxResults(1)
-                            ->getQuery();
-                        try {
-                            $adminUnit = $query->getSingleResult();
-                        } catch (\Doctrine\Orm\NoResultException $e) {
-                            $adminUnit = new AdminUnit();
-                            $adminUnit->setCountry($country)->setAdministrativeAreaLevel1($adminarea1)->setAdministrativeAreaLevel2($adminarea2)->setLocality($locality)->setSublocality($sublocality);
-                            $em->persist($adminUnit);
-                        }
-                        $tournament = $em->getRepository('MoiKubkiFootballBundle:Tournament')
-                            ->find($id);
-                        if (!$tournament)
-                        {
-                            return new Response('Неверный ид турнира');
-                        }
-                        $team = new TeamFC();
-                        $team->setName($name);
-                        $team->setAdminUnit($adminUnit);
-                        $team->setTournament($tournament);
-                        $em->persist($team);
-                        $em->flush();
-                        return new Response('Команда добавленна');
-                    }
-                    else
-                    {
-                        return new Response('Не введено название команды');
-                    }
-                }
-                else
-                {
-                    return new Response('Недействительный токен');
-                }
+                return new Response('Неверные параметры запроса');
             }
+
+            //Проверяем права на редактирование турнира
+            $authorizationChecker = $this->get('security.authorization_checker');
+            $tournament = $this->getDoctrine()->getRepository('MoiKubkiFootballBundle:Tournament')->find($id);
+            if (false === $authorizationChecker->isGranted('EDIT', $tournament)) {
+                return new Response('У вас нет права редактировать турнир');
+            }
+
+            //Считываем и проверяем токен
+            if (!$this->get('form.csrf_provider')->isCsrfTokenValid('tournament'.$id , $token))
+            {
+                return new Response('Недействительный токен');
+            }
+
+            if (strlen($id_admin)!==40) {
+                return new Response('Некоректно введена административная единица');
+            }
+            if (strlen($name) == 0)
+            {
+                return new Response('Не введено название команды');
+            }
+            //Получаем менеджер доктрины
+            $em = $this->getDoctrine()->getManager();
+            //Получаем репозиторий административных единиц
+            $repository = $em->getRepository('MoiKubkiHomeBundle:AdminUnit');
+            //Проверяем наличие админ. ед.
+            $query = $repository->createQueryBuilder('p')
+                ->where('p.country = :country AND p.administrative_area_level_1 = :adminarea1 AND p.administrative_area_level_2 = :adminarea2 AND p.locality = :locality AND p.sublocality = :sublocality')
+                ->setParameters(array('country' => $country , 'adminarea1' => $adminarea1, 'adminarea2' => $adminarea2, 'locality' => $locality, 'sublocality' =>$sublocality))
+                ->setMaxResults(1)
+                ->getQuery();
+            try {
+                $adminUnit = $query->getSingleResult();
+            } catch (\Doctrine\Orm\NoResultException $e) {
+                $adminUnit = new AdminUnit();
+                $adminUnit->setCountry($country)
+                            ->setAdministrativeAreaLevel1($adminarea1)
+                            ->setAdministrativeAreaLevel2($adminarea2)
+                            ->setLocality($locality)
+                            ->setSublocality($sublocality)
+                            ->setGoogleId($id_admin);
+                $em->persist($adminUnit);
+                $em->flush();
+            }
+
+            //Проверяем наличие команды с таким название в в базе данных
+            $query = $em->getRepository('MoiKubkiFootballBundle:TeamFC')
+                ->createQueryBuilder('p')
+                ->where('p.name = :name AND p.tournament = :tournament AND p.adminUnit = :adminUnit')
+                ->setParameters(array('name' => $name , 'tournament' => $id, 'adminUnit' => $adminUnit))
+                ->setMaxResults(1)
+                ->getQuery();
+            $team = $query->getResult();
+
+            if ($team) {
+                return new Response('Команда уже внесена в турнир ');
+            }
+
+            $tournament = $em->getRepository('MoiKubkiFootballBundle:Tournament')
+                ->find($id);
+            if (!$tournament)
+            {
+                return new Response('Неверный ид турнира');
+            }
+
+            $team = new TeamFC();
+            $team->setName($name);
+            $team->setAdminUnit($adminUnit);
+            $team->setTournament($tournament);
+            $em->persist($team);
+            $em->flush();
+            return new Response('Команда добавленна');
         }
         return $this->render('MoiKubkiFootballBundle:Tournament:addTeam.html.twig');
     }
@@ -213,6 +234,58 @@ class TournamentController extends Controller
         else $teams =  $this->getDoctrine()->getRepository('MoiKubkiFootballBundle:TeamFC')->findBy(array('tournament'=>$id));
 
         return $this->render('MoiKubkiFootballBundle:Tournament:getTeamsFromTournament.html.twig', array('teams' => $teams ));
+    }
+
+    //Удаление команды из турнира
+    public function delTeamAction(Request $request)
+    {
+        if ($request->getMethod()!== 'POST')
+        {
+            return new Response('Это не POST');
+        }
+        $token = $request->get('_token');
+        $id = $request->get('id');
+        $id_team = $request->get('id_team');
+        if (!isset($id, $token, $id_team))
+        {
+            return new Response('Неверные параметры запроса');
+        }
+
+        //Проверяем права на редактирование турнира
+        $authorizationChecker = $this->get('security.authorization_checker');
+        $tournament = $this->getDoctrine()->getRepository('MoiKubkiFootballBundle:Tournament')->find($id);
+        if (false === $authorizationChecker->isGranted('EDIT', $tournament)) {
+            return new Response('У вас нет права редактировать турнир');
+        }
+
+        //Считываем и проверяем токен
+        if (!$this->get('form.csrf_provider')->isCsrfTokenValid('tournament'.$id, $token))
+        {
+            return new Response('Недействительный токен');
+        }
+
+        //Ищем команду и проверяем принадлежность ее к турниру
+        $team = $this->getDoctrine()->getRepository('MoiKubkiFootballBundle:TeamFC')->find($id_team);
+        if (!$team)
+        {
+            return new Response('Команда не найдена');
+        }
+
+        if ($team->getTournament()->getId()!=$id)
+        {
+            return new Response('Попытка удалить команду из другого турнира');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($team);
+        $em->flush();
+
+        return new Response('Удалено');
+    }
+
+    public function editStages($id)
+    {
+        
     }
 
     public function showAction($id)

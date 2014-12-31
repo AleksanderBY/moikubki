@@ -551,17 +551,60 @@ $(document).ready(function () {
         var sublocality = $('[data-geo="sublocality"]').text();
         var name = $('#name_team').val();
         var id = $('#teams_list').attr('value');
+        var id_admin = $('[data-geo="id"]').text();
         var token = $('[name="_token"]').val();
-        $.ajax({
+
+        $.when($.ajax({
             type:"POST",
-            data:{'country':country, 'adminarea1':adminarea1, 'adminarea2':adminarea2, 'locality': locality, 'sublocality': sublocality, 'name': name, 'id':id, '_token':token},
+            data:{'country':country, 'adminarea1':adminarea1, 'adminarea2':adminarea2, 'locality': locality,
+                'sublocality': sublocality, 'name': name, 'id':id, '_token':token, 'id_admin':id_admin},
             url:Routing.generate('moi_kubki_add_football_team'),
             success:function(data) {
-                alert(data);
+
             }
-        })
+        })).then($.ajax({
+                type:"POST",
+                data:{'filter':''},
+                url:Routing.generate('moi_kubki_get_team_from_tournament',{'id':id}),
+                success: function(data) {
+                    $('#teams_list').html(data);
+                }
+            }))
     })
 })
+
+//Отправка запрова на удаление команды
+$(document).ready(
+    function ()
+    {
+        $('body').on('click', '.del-team', function (){
+            var id_team= $(this).attr('data-x');
+            var id = $('#teams_list').attr('value');
+            var token = $('[name="_token"]').val();
+            $.when(
+                $.ajax({
+                    type:"POST",
+                    data:{'id_team':id_team, 'id':id, '_token':token},
+                    url:Routing.generate('moi_kubki_del_football_team'),
+                    success: function(data) {
+
+                    }
+                })
+            ).then($.ajax({
+                    type:"POST",
+                    data:{'filter':''},
+                    url:Routing.generate('moi_kubki_get_team_from_tournament',{'id':id}),
+                    success: function(data) {
+                        $('#teams_list').html(data);
+                    }
+                })
+
+                )
+
+
+        } )
+    }
+)
 
 
 

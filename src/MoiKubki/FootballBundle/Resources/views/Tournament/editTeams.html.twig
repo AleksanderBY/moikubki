@@ -26,6 +26,8 @@
                 'MoiKubkiFootballBundle:Tournament:addTeam'
                 )) }}
 
+                <input type="hidden" name="_token" value="{{ csrf_token(tournament_token) }}">
+
                 <button id="createTeam" class="btn btn-block">Добавить команду</button>
 
                 <hr>

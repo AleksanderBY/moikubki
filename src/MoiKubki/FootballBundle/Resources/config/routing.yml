@@ -12,9 +12,19 @@ moi_kubki_football_editteams:
     path:     /edit/teams/{id}
     defaults: { _controller: MoiKubkiFootballBundle:Tournament:editTeams }
 
+moi_kubki_football_editstages:
+    path:     /edit/stages/{id}
+    defaults: { _controller: MoiKubkiFootballBundle:Tournament:editStages }
+
 moi_kubki_add_football_team:
     path:     /edit/addteam
     defaults: {_controller: MoiKubkiFootballBundle:Tournament:addTeam}
+    options:
+            expose: true
+
+moi_kubki_del_football_team:
+    path:     /edit/delteam
+    defaults: {_controller: MoiKubkiFootballBundle:Tournament:delTeam}
     options:
             expose: true
 
