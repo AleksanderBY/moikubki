@@ -18,28 +18,18 @@
 
             <h5>Этапы турнира</h5>
 
-            <div id="country_div">
+            <div id="stage_div" value="{{ id }}">
 
-                {{ render(controller(
-                'MoiKubkiFootballBundle:Tournament:addTeam'
-                )) }}
+                {{ include ('MoiKubkiFootballBundle:Tournament:getStagesFromTournament.html.twig', {'stages': stages}) }}
 
-                <input type="hidden" name="_token" value="{{ csrf_token(tournament_token) }}">
-
-                <button id="createTeam" class="btn btn-block">Добавить команду</button>
-
-                <hr>
-               <h5>Зарегистрированные команды</h5>
-
-            <input id="myfilter" type="text" class="form-control" placeholder="Фильтр команд">
-
-            <div id="teams_list" class="table-responsive" value="{{ id }}">
-                {{ render(controller(
-                'MoiKubkiFootballBundle:Tournament:getTeamsFromTournament',{'id': id}
-                )) }}
             </div>
 
-        </div>
+            <form method="post" action="" id="stage_form">
+                {{ form_widget(form) }}
+                <input type="button" id="createStage" name="sdfsd">
+
+            </form>
+
     </div>
 
 {% endblock %}

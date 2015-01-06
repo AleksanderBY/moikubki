@@ -1,0 +1,25 @@
+<table class="table table-bordered">
+    <tbody>
+    <tr class="active">
+        <th>
+            Название
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    {% for stage in stages %}
+        <tr>
+            <td>
+                {{ stage.getName }}
+            </td>
+            <td>
+                <a href="#" class="del-team btn btn-xs btn-danger" role="button" data-x="{{ stage.id }}">
+                    <i class="fa fa-trash-o"></i>
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>

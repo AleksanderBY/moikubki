@@ -7,6 +7,7 @@ use MoiKubki\FootballBundle\Entity\Group;
 use MoiKubki\FootballBundle\Entity\Stage;
 use MoiKubki\FootballBundle\Entity\TeamFC;
 use MoiKubki\FootballBundle\Entity\Tournament;
+use MoiKubki\FootballBundle\Form\Type\StageType;
 use MoiKubki\FootballBundle\Form\Type\TournamentType;
 use MoiKubki\HomeBundle\Entity\AdminUnit;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -283,7 +284,7 @@ class TournamentController extends Controller
         return new Response('Удалено');
     }
 
-    public function editStagesAction($id)
+    public function editStagesAction($id, Request $request)
     {
         $tournament = $this->getDoctrine()->getRepository('MoiKubkiFootballBundle:Tournament')->find($id);
         if (!$tournament)
@@ -295,13 +296,28 @@ class TournamentController extends Controller
         if (false === $authorizationChecker->isGranted('EDIT', $tournament)) {
             return $this->redirect($this->generateUrl('moi_kubki_football_show', array('id'=>$id)));
         }
-        else
+        //получаем список этапов турнира
+        $stage = new Stage();
+
+        $form = $this->createForm(new StageType(), $stage);
+
+        if ($request->getMethod() == 'POST')
         {
-            //Генерим токен для турнира
-            $tournament_token = 'tournament'.$id;
-            $this->get('form.csrf_provider')->generateCsrfToken('tournament'.$id);
-            return $this->render('MoiKubkiFootballBundle:tournament:editStages.html.twig', array('id' => $id, 'tournament' => $tournament, 'tournament_token' => $tournament_token));
+            $form->handleRequest($request);
+            if ($form->isValid())
+            {
+                $stage->setTournament($tournament);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($stage);
+                $tournament->addStage($stage);
+                $em->flush();
+                $stages = $tournament->getStages();
+                return $this->render('MoiKubkiFootballBundle:Tournament:getStagesFromTournament.html.twig', array('stages' =>$stages));
+            }
         }
+        $stages = $tournament->getStages();
+        return $this->render('MoiKubkiFootballBundle:tournament:editStages.html.twig', array('id' => $id, 'tournament' => $tournament,
+             'stages' => $stages, 'form' => $form->createView()));
     }
 
     public function showAction($id)

@@ -606,6 +606,26 @@ $(document).ready(
     }
 )
 
+$(document).ready(
+    $('#createStage').click(
+        function () {
+            var msg=$('#stage_form').serialize();
+            alert(msg);
+            var id=$('#stage_div').attr('value');
+            $.ajax({
+                type:"POST",
+                data:msg,
+                url:Routing.generate('moi_kubki_football_editstages', {'id':id}),
+                success: function (data) {
+                    alert('asdas');
+                    $('#stage_div').html(data);
+                }
+            })
+            return false;
+        }
+    )
+)
+
 
 
 //фильт состава участников турнира
